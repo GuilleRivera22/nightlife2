@@ -20,16 +20,25 @@
       "supportsTablet": false
     },
     "android": {
-      "permissions": ["CAMERA", 
+      "package": "com.guillerivera16.NightLife",
+      "config": {
+        "googleMaps": {
+          "apiKey" : "AIzaSyDgZfL-2ODAR-yQuq8kUYXeUEM46nCJ2AU"
+        }
+      },
+      "permissions": [
+        "CAMERA",
         "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE", 
+        "WRITE_EXTERNAL_STORAGE",
         "LOCATION",
         "ACCESS_COARSE_LOCATION",
-        "ACCESS_FINE_LOCATION"],
+        "ACCESS_FINE_LOCATION"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
+
     },
     "web": {
       "favicon": "./assets/favicon.png"

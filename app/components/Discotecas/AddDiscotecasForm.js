@@ -8,9 +8,12 @@ import * as Location from "expo-location";
 import MapView from "react-native-maps";
 import uuid from "random-uuid-v4";
 import Modal from "../Modal";
+
 import { firebaseApp } from "../../utils/Firebase";
 import firebase from "firebase/app";
 import "firebase/storage";
+import "firebase/firestore";
+const db = firebase.firestore(firebaseApp);
 
 
 const widthScreen = Dimensions.get("window").width;
@@ -37,8 +40,29 @@ export default function AddDiscotecasForm(props){
         } else {
             setIsLoading(true);
             uploadImageStorage().then(response => {
-                console.log(response);
-                setIsLoading(false);
+
+                db.collection("discotecas")
+                .add({
+                    name: discotecaName,
+                    address: discotecaAdress,
+                    description: discotecaDescription,
+                    location: locationDiscoteca,
+                    images: response,
+                    rating: 0,
+                    ratingTotal: 0,
+                    quantityVoting: 0,
+                    createAt: new Date(),
+                    createBy: firebaseApp.auth().currentUser.uid,
+                })
+                .then(() => {
+                    setIsLoading(false);
+                    navigation.navigate("discotecas");
+                }).catch(() => {
+                    setIsLoading(false);
+                    toastRef.current.show(
+                        "Error al subir la discoteca, inténtelo más tarde"
+                    )
+                })
             })
         }
     };
